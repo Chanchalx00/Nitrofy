@@ -18,7 +18,7 @@ export async function createAppLoadContext(request, env, executionContext) {
   //   throw new Error('SESSION_SECRET environment variable is not set');
   // }
  const SESSION_SECRET = "foobar";
-  const waitUntil = executionContext.waitUntil.bind(executionContext);
+  const waitUntil = executionContext?.waitUntil?.bind(executionContext)??((promise)=>promise);
   const [cache, session] = await Promise.all([
     caches.open('hydrogen'),
     AppSession.init(request, [SESSION_SECRET]),
