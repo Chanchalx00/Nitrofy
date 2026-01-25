@@ -14,14 +14,16 @@ export async function createAppLoadContext(request, env, executionContext) {
   /**
    * Open a cache instance in the worker and a custom session instance.
    */
-  if (!env?.SESSION_SECRET) {
+
+const SESSION_SECRET = process.env.SESSION_SECRET; 
+  if (!SESSION_SECRET) {
     throw new Error('SESSION_SECRET environment variable is not set');
   }
 
   const waitUntil = executionContext.waitUntil.bind(executionContext);
   const [cache, session] = await Promise.all([
     caches.open('hydrogen'),
-    AppSession.init(request, [env.SESSION_SECRET]),
+    AppSession.init(request, [SESSION_SECRET]),
   ]);
 
   const hydrogenContext = createHydrogenContext({
