@@ -5,5 +5,8 @@
       "src": "/(.*)",
       "dest": "/api/index"
     }
-  ]
+  ],
+  "env":{
+    "SESSION_SECRET": "foobar"
+  }
 }
