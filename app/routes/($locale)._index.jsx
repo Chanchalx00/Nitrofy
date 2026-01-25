@@ -69,7 +69,7 @@ export default function Homepage() {
       <section className="relative h-screen min-h-[600px] bg-brand-navy">
         <Image
           alt="Products"
-          className="absolute inset-0 w-full object-cover opacity-70"
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
           loading="eager"
                 sizes='(max-width:768px) 100vw,(max-width:1200px)50vw,33vw'
           data={{url: '/image/products.jpg', width: 1920, height: 1080}}
@@ -151,7 +151,7 @@ export default function Homepage() {
             <p className='font-source text-gray-600 mb-8 leading-relaxed'>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga ullam voluptas repudiandae expedita illo excepturi quas nemo quo alias ex itaque molestiae, sit voluptates consequuntur temporibus necessitatibus earum? Deserunt, iusto.
             </p>
-            <Link to='/pages/our-product' className='inline-flex items-center font-source font-medium text-brand-navy hover:text-brand-gold transition-colors duration-300'>
+            <Link to='/collections' className='inline-flex items-center font-source font-medium text-brand-navy hover:text-brand-gold transition-colors duration-300'>
             Discover Our Process
             <ArrowRight className='ml-2 w-5 h-5'/>
             </Link>

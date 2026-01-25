@@ -5,6 +5,8 @@ import {VariantSelector, RichText} from '@shopify/hydrogen';
 
 export function ProductForm({product, selectedVariant, variants, className}) {
   const {open} = useAside();
+  console.log(product);
+  console.log(selectedVariant)
 
   return (
     <div className={`flex flex-col ${className}`}>
@@ -19,7 +21,6 @@ export function ProductForm({product, selectedVariant, variants, className}) {
         >
           {({option}) => <ProductOptions key={option.name} option={option} />}
         </VariantSelector>
-
         {/* Add to cart */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -124,7 +125,7 @@ export function ProductForm({product, selectedVariant, variants, className}) {
 function ProductOptions({option}) {
   return (
     <div className="product-options">
-      <h5>{option.name}</h5>
+      <h5 className="font-playfair text-lg">{option.name}</h5>
       <div className="product-options-grid">
         {option.values.map(({value, isAvailable, isActive, to}) => (
           <Link
@@ -133,10 +134,13 @@ function ProductOptions({option}) {
             preventScrollReset
             replace
             to={to}
-            style={{
-              border: isActive ? '2px solid black' : '1px solid black',
-              opacity: isAvailable ? 1 : 0.3,
-            }}
+            className={`
+    px-4 py-2 text-sm font-source
+    border transition rounded-full
+    ${isActive ? 'border-brand-navy border-2' : 'border-brand-navy/40'}
+    ${isAvailable ? 'opacity-100' : 'opacity-40 pointer-events-none'}
+    hover:border-brand-navy
+  `}
           >
             {value}
           </Link>
