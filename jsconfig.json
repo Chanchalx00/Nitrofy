@@ -5,10 +5,9 @@
     "module": "ES2022",
     "moduleResolution": "Bundler",
     "baseUrl": ".",
+    "types": [],
     "paths": {
-      "~/*": [
-        "app/*"
-      ]
+      "~/*": ["app/*"]
     }
   },
   "include": [
