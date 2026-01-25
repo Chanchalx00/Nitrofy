@@ -14,13 +14,13 @@ export async function createAppLoadContext(request, env, executionContext) {
   /**
    * Open a cache instance in the worker and a custom session instance.
    */
-  const isProd = env?.NODE_ENV === 'production';
-  if (!env?.SESSION_SECRET) {
-    if (!isProd) {
-      throw new Error('SESSION_SECRET environment variable is not set');
-    }
-    console.warn('SESSION_SECRET environment variable is not set');
-  }
+  // const isProd = env?.NODE_ENV === 'production';
+  // if (!env?.SESSION_SECRET) {
+  //   if (!isProd) {
+  //     throw new Error('SESSION_SECRET environment variable is not set');
+  //   }
+  //   console.warn('SESSION_SECRET environment variable is not set');
+  // }
   const SESSION_SECRET = env?.SESSION_SECRET || 'fallback-secret';
 
   const waitUntil = executionContext?.waitUntil?.bind(executionContext)??((promise)=>promise);
