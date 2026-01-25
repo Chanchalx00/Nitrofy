@@ -14,19 +14,14 @@ export async function createAppLoadContext(request, env, executionContext) {
   /**
    * Open a cache instance in the worker and a custom session instance.
    */
-  // const isProd = env?.NODE_ENV === 'production';
-  // if (!env?.SESSION_SECRET) {
-  //   if (!isProd) {
-  //     throw new Error('SESSION_SECRET environment variable is not set');
-  //   }
-  //   console.warn('SESSION_SECRET environment variable is not set');
-  // }
-  const SESSION_SECRET = env?.SESSION_SECRET || 'fallback-secret';
+  if (!env?.SESSION_SECRET) {
+    throw new Error('SESSION_SECRET environment variable is not set');
+  }
 
-  const waitUntil = executionContext?.waitUntil?.bind(executionContext)??((promise)=>promise);
+  const waitUntil = executionContext.waitUntil.bind(executionContext);
   const [cache, session] = await Promise.all([
     caches.open('hydrogen'),
-    AppSession.init(request, [SESSION_SECRET]),
+    AppSession.init(request, [env.SESSION_SECRET]),
   ]);
 
   const hydrogenContext = createHydrogenContext({
