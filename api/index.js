@@ -2,18 +2,7 @@ import server from "../dist/server/index.js";
 
 export default async (req, context) => {
 
-  const url = new URL(
-    req.url || "/",
-    `https://${req.headers.host}`
-  );
-
-  const request = new Request(url.toString(), {
-    method: req.method,
-    headers: req.headers,
-    body: req.body,
-  });
-
-  // 🔒 Proxy so no env lookup ever returns undefined
+  // Build env object
   const rawEnv = {
     SESSION_SECRET: process.env.SESSION_SECRET,
     PUBLIC_STOREFRONT_API_TOKEN: process.env.PUBLIC_STOREFRONT_API_TOKEN,
@@ -28,10 +17,25 @@ export default async (req, context) => {
       process.env.PUBLIC_CHECKOUT_DOMAIN || "",
   };
 
+  // ✅ Inject into Node env
+  Object.assign(process.env, rawEnv);
+
+  // ✅ Proxy so missing keys never crash
   const env = new Proxy(rawEnv, {
     get(target, prop) {
       return prop in target ? target[prop] : "";
     }
+  });
+
+  const url = new URL(
+    req.url || "/",
+    `https://${req.headers.host}`
+  );
+
+  const request = new Request(url.toString(), {
+    method: req.method,
+    headers: req.headers,
+    body: req.body,
   });
 
   const executionContext = {
