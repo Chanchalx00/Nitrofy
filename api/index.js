@@ -41,6 +41,7 @@ export default async (req, context) => {
   const executionContext = {
     waitUntil: context.waitUntil || (() => {}),
   };
+  
 
   return server.fetch(request, env, executionContext);
 };
