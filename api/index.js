@@ -13,11 +13,16 @@ export default async (req, context) => {
     headers: new Headers(req.headers),
   });
 
-  // Pass environment variables
+  // Pass ALL environment variables with fallbacks
   const env = {
-    SESSION_SECRET: process.env.SESSION_SECRET,
-    PUBLIC_STOREFRONT_API_TOKEN: process.env.PUBLIC_STOREFRONT_API_TOKEN,
-    PUBLIC_STORE_DOMAIN: process.env.PUBLIC_STORE_DOMAIN,
+    SESSION_SECRET: process.env.SESSION_SECRET || 'default-secret-key',
+    PUBLIC_STOREFRONT_API_TOKEN: process.env.PUBLIC_STOREFRONT_API_TOKEN || '',
+    PUBLIC_STORE_DOMAIN: process.env.PUBLIC_STORE_DOMAIN || 'mock.shop',
+    PUBLIC_STOREFRONT_API_VERSION: process.env.PUBLIC_STOREFRONT_API_VERSION || '2024-01',
+    PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID: process.env.PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID || '',
+    PUBLIC_CUSTOMER_ACCOUNT_API_URL: process.env.PUBLIC_CUSTOMER_ACCOUNT_API_URL || '',
+    PUBLIC_CHECKOUT_DOMAIN: process.env.PUBLIC_CHECKOUT_DOMAIN || '',
+    // Add any other env vars your app might need
   };
 
   // Create execution context
@@ -26,6 +31,14 @@ export default async (req, context) => {
     passThroughOnException: () => {},
   };
 
-  // Call server.fetch
-  return await server.fetch(request, env, executionContext);
+  try {
+    // Call server.fetch
+    return await server.fetch(request, env, executionContext);
+  } catch (error) {
+    console.error('Server error:', error);
+    return new Response('Internal Server Error: ' + error.message, {
+      status: 500,
+      headers: { 'Content-Type': 'text/plain' }
+    });
+  }
 };
