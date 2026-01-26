@@ -1,4 +1,4 @@
-import * as server from '../dist/server/index.js';
+import  server from '../dist/server/index.js';
 
 export default async (req, context) => {
   // Create URL from Vercel request
