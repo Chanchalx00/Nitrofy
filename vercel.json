@@ -1,17 +1,12 @@
 {
   "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": null,
+  "outputDirectory": "dist/client",
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/index"
+      "dest": "/api/index.js"
     }
-  ],
-  "env":{
-    "SESSION_SECRET": "foobar"
-  },
-   "build": {
-    "env": {
-      "SESSION_SECRET": "foobar"
-    }
-  }
+  ]
 }
