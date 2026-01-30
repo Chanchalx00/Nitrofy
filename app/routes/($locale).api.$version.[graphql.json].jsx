@@ -13,5 +13,8 @@ export async function action({params, context, request}) {
 
   return new Response(response.body, {headers: new Headers(response.headers)});
 }
+export default function Robots() {
+  return null;
+}
 
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof action>} ActionReturnData */

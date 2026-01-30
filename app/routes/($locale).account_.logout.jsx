@@ -12,6 +12,9 @@ export async function loader() {
 export async function action({context}) {
   return context.customerAccount.logout();
 }
+export default function Robots() {
+  return null;
+}
 
 /** @typedef {import('@shopify/remix-oxygen').ActionFunctionArgs} ActionFunctionArgs */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

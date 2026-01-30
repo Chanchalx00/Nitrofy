@@ -15,6 +15,9 @@ export async function loader({params, context}) {
 
   return null;
 }
+export default function Robots() {
+  return null;
+}
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

@@ -46,6 +46,9 @@ export async function loader({request, context, params}) {
     headers,
   });
 }
+export default function Robots() {
+  return null;
+}
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

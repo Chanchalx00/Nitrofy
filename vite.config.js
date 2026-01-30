@@ -10,6 +10,12 @@ export default defineConfig({
     // Allow a strict Content-Security-Policy
     // withtout inlining assets as base64:
     assetsInlineLimit: 0,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === 'EMPTY_CHUNK') return;
+        warn(warning);
+      },
+    },
   },
   ssr: {
     optimizeDeps: {
