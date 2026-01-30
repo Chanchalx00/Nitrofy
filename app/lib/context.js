@@ -1,7 +1,6 @@
 import {createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
-import {getLocaleFromRequest} from '~/lib/i18n';
 
 /**
  * The context implementation is separate from server.ts
@@ -14,15 +13,9 @@ export async function createAppLoadContext(request, env, executionContext) {
   /**
    * Open a cache instance in the worker and a custom session instance.
    */
+  console.log('[CONTEXT] Creating app load context...');
 
-  const SESSION_SECRET = env.SESSION_SECRET || 'foobars';
-   console.log('[ENV CHECK]');
-  console.log('SESSION_SECRET exists:', Boolean(env.SESSION_SECRET));
-  console.log('PUBLIC_STORE_DOMAIN:', env.PUBLIC_STORE_DOMAIN);
-  console.log(
-    'PUBLIC_STOREFRONT_API_TOKEN exists:',
-    Boolean(env.PUBLIC_STOREFRONT_API_TOKEN)
-  );
+  const SESSION_SECRET = env.SESSION_SECRET || 'foobar;';
 
   const waitUntil =
     executionContext?.waitUntil?.bind(executionContext) || (() => {});
@@ -36,19 +29,27 @@ export async function createAppLoadContext(request, env, executionContext) {
   };
 
   const session = await AppSession.init(request, [SESSION_SECRET]);
-
+  const i18n = {
+    language: 'EN',
+    country: 'US',
+    pathPrefix: '',
+  };
+  // In context.js, before createHydrogenContext
+console.log('[DEBUG] env:', JSON.stringify(env, null, 2));
+console.log('[DEBUG] i18n:', JSON.stringify(i18n, null, 2));
+console.log('[DEBUG] session exists:', Boolean(session));
   const hydrogenContext = createHydrogenContext({
     env,
     request,
     cache,
     waitUntil,
     session,
-    i18n: getLocaleFromRequest(request),
+    i18n,
     cart: {
       queryFragment: CART_QUERY_FRAGMENT,
     },
   });
-
+console.log('[CONTEXT] Context created successfully');
   return {
     ...hydrogenContext,
     // declare additional Remix loader context
