@@ -1,9 +1,10 @@
-export const runtime = 'edge';
-
 import server from '../dist/server/index.js';
 
+export const runtime = 'nodejs';
+
 export default {
-  fetch(request, env, executionContext) {
-    return server.fetch(request, env, executionContext);
+  async fetch(request, _env, executionContext) {
+    // Force Node env vars into Hydrogen
+    return server.fetch(request, process.env, executionContext);
   },
 };
