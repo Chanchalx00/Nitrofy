@@ -9,8 +9,7 @@
     "dev": "dotenv -- shopify hydrogen dev",
     "preview": "shopify hydrogen preview --build",
     "lint": "eslint --no-error-on-unmatched-pattern .",
-    "codegen": "shopify hydrogen codegen",
-    "start": "node dist/server/index.js"
+    "codegen": "shopify hydrogen codegen"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
