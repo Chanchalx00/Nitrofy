@@ -15,13 +15,18 @@ export async function createAppLoadContext(request, env, executionContext) {
    * Open a cache instance in the worker and a custom session instance.
    */
 
-  const SESSION_SECRET = env.SESSION_SECRET; 
-  if (!SESSION_SECRET) {
-    throw new Error('SESSION_SECRET environment variable is not set');
-  }
+  const SESSION_SECRET = env.SESSION_SECRET || 'foobars';
+   console.log('[ENV CHECK]');
+  console.log('SESSION_SECRET exists:', Boolean(env.SESSION_SECRET));
+  console.log('PUBLIC_STORE_DOMAIN:', env.PUBLIC_STORE_DOMAIN);
+  console.log(
+    'PUBLIC_STOREFRONT_API_TOKEN exists:',
+    Boolean(env.PUBLIC_STOREFRONT_API_TOKEN)
+  );
 
-  const waitUntil = executionContext?.waitUntil?.bind(executionContext) || (() => {});
-  
+  const waitUntil =
+    executionContext?.waitUntil?.bind(executionContext) || (() => {});
+
   // Create mock cache for Vercel (caches API not available in serverless)
   const cacheMap = new Map();
   const cache = {
