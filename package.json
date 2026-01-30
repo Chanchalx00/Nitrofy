@@ -6,10 +6,11 @@
   "type": "module",
   "scripts": {
     "build": "shopify hydrogen build --codegen",
-"dev": "dotenv -- shopify hydrogen dev",
+    "dev": "dotenv -- shopify hydrogen dev",
     "preview": "shopify hydrogen preview --build",
     "lint": "eslint --no-error-on-unmatched-pattern .",
-    "codegen": "shopify hydrogen codegen"
+    "codegen": "shopify hydrogen codegen",
+    "start": "node dist/server/index.js"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
@@ -65,6 +66,6 @@
     "vite-tsconfig-paths": "^4.3.1"
   },
   "engines": {
-    "node": "24.x"
+    "node": "20.x"
   }
 }
