@@ -141,14 +141,14 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
                 </div>
 
                 {/* Policies Column*/}
-                <div className="space-y-6">
+                {/* <div className="space-y-6">
                   <h4 className="font-playfair text-lg">Policies</h4>
                   <FooterMenu
                     menu={footer?.menu}
                     primaryDomainUrl={header.shop.primaryDomain.url}
                     publicStoreDomain={publicStoreDomain}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             {/* Copyright Bar */}
@@ -171,45 +171,45 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
   );
 }
 
-/**
- * @param {{
- *   menu: FooterQuery['menu'];
- *   primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
- *   publicStoreDomain: string;
- * }}
- */
-function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
-  return (
-    <nav className="space-y-3 font-source text-sm " role="navigation">
-      {menu?.items.map((item) => {
-        if (!item.url) {
-          return null;
-        }
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl) //store domains
-            ? new URL(item.url).pathname
-            : item.url;
+// /**
+//  * @param {{
+//  *   menu: FooterQuery['menu'];
+//  *   primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
+//  *   publicStoreDomain: string;
+//  * }}
+//  */
+// function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
+//   return (
+//     <nav className="space-y-3 font-source text-sm " role="navigation">
+//       {menu?.items.map((item) => {
+//         if (!item.url) {
+//           return null;
+//         }
+//         const url =
+//           item.url.includes('myshopify.com') ||
+//           item.url.includes(publicStoreDomain) ||
+//           item.url.includes(primaryDomainUrl) //store domains
+//             ? new URL(item.url).pathname
+//             : item.url;
 
-        return (
-          <NavLink
-            className={({isActive}) =>
-              `block text-gray-300 hover:text-brand-gold transition-colors duration-300 ${isActive?'text-brand-gold':''}`
-            }
-            end
-            key={item.id}
-            onClick={close}
-            prefetch="intent"
-            to={url}
-          >
-            {item.title}
-          </NavLink>
-        );
-      })}
-    </nav>
-  );
-}
+//         return (
+//           <NavLink
+//             className={({isActive}) =>
+//               `block text-gray-300 hover:text-brand-gold transition-colors duration-300 ${isActive?'text-brand-gold':''}`
+//             }
+//             end
+//             key={item.id}
+//             onClick={close}
+//             prefetch="intent"
+//             to={url}
+//           >
+//             {item.title}
+//           </NavLink>
+//         );
+//       })}
+//     </nav>
+//   );
+// }
 
 
 

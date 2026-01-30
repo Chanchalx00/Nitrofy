@@ -1,6 +1,7 @@
 import {createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
+import {getLocaleFromRequest} from '~/lib/i18n';
 
 /**
  * The context implementation is separate from server.ts
@@ -44,12 +45,12 @@ console.log('[DEBUG] session exists:', Boolean(session));
     cache,
     waitUntil,
     session,
-    i18n,
+    i18n: getLocaleFromRequest(request),
     cart: {
       queryFragment: CART_QUERY_FRAGMENT,
     },
   });
-console.log('[CONTEXT] Context created successfully');
+
   return {
     ...hydrogenContext,
     // declare additional Remix loader context
